@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { login,getUserInfo } from '@/api/user'
 import { ElMessage } from 'element-plus'  // 引入Message组件
 import dateUtils from '@/utils/date'  // 引入日期工具
@@ -120,7 +119,11 @@ const showLogFunctions = () => {
   try {
     throw new Error('这是一个测试错误');
   } catch (e) {
-    logger.error(e);
+    if (e instanceof Error) {
+      logger.error(e);
+    } else {
+      logger.error(String(e));
+    }
   }
   
   // 获取本地存储的日志
